@@ -84,11 +84,11 @@ $(VENV):
 $(VENV)/bin/pytest: $(VENV)
 	$(VENV)/bin/pip install pytest
 
-install-dependencies: $(VENV)
-	$(VENV)/bin/pip install -r requirements.txt
-
 install: $(PKGFILE) $(VENV)
 	$(VENV)/bin/pip install $(PKGFILE)
+
+install[%]: $(PKGFILE) $(VENV)
+	$(VENV)/bin/pip install $(PKGFILE)[$*]
 
 uninstall: $(VENV)
 	$(VENV)/bin/pip uninstall -y $(NAME)

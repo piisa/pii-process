@@ -87,8 +87,8 @@ setup_args = dict(
     tests_require=["pytest"],
     entry_points={
         "console_scripts": [
-            #"pii-process = pii_process.app.process:main",
-            #"pii-process-jsonl = pii_process.app.multi:main",
+            "pii-process-doc = pii_process.app.doc:main",
+            "pii-process-jsonl = pii_process.app.jsonl:main",
         ]
     },
     include_package_data=False,
