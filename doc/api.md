@@ -16,7 +16,8 @@ This is an end-to-end process:
  - transform the detected instances in the original document
  - write an output document with the transformed instances
 
-The API is provided by the `process_document` function:
+The API is provided by the `process_document` function. In its simplest form
+it just needs the name of the input file and the output file:
 
 ```Python
 from pii_process.api import process_document
@@ -29,7 +30,6 @@ behaviour, see [its implementation] for a full list.
 
 
 The `pii-process-doc` command-line script performs the same processing.
-
 
 
 ## Process API for text buffers
@@ -64,35 +64,42 @@ chain. Argument values can be:
  * filenames holding a configuration (in JSON format)
  * in-memory configurations, as a Python dictionary
 
-The constructor contains also additional arguments to select a subset of
+The constructor contains also additional arguments to e.g. select a subset of
 detection tasks to apply.
+
+Note that all text buffers processed with this object must contain _the same_
+language (the one indicated in the constructor). For multilingual processing
+it is possible to create different objects, one for each desired language, but
+it would be more practical to use the multilingual object described in the
+next section.
 
 
 ## Multilingual process API for text buffers
 
-There is a small variant over the previous API, the `MultiPiiTextProcessor`
-object. This one accepts a _list of languages_ in its constructor; it then
-initializes a processor for each of them, and at processing time allows to choose
-the language to use for each text buffer (only from among the ones that have been
-initialized in the constructor). So it can be used to process a list of text
-buffers that are _in different_ languages.
+This is a small variant over the previous API, which provides the
+`MultiPiiTextProcessor` object. This one accepts a _list of languages_ in its
+constructor; it then initializes a processor for each of them, and at processing
+time allows to choose the language to use for each text buffer (but only from
+among the ones that were initialized in the constructor). So it can be used to
+process a list of text buffers that are _in different_ languages.
+
 
 ```Python
 from pii_process.api import MultiPiiTextProcessor
 
 # Create the object, defining the languages to use and the default policy
 # Further customization is possible by providing a config
-proc = MultiPiiTextProcessor(lang=["en", "ch"], default_policy="label")
+proc = MultiPiiTextProcessor(lang=["en", "es"], default_policy="label")
 
 # Process a text buffer and get the transformed buffer
 outbuf1 = proc(inbuf1, lang="en")
-outbuf2 = proc(inbuf2, lang="ch")
+outbuf2 = proc(inbuf2, lang="es")
 
 # Get some statistics on the detected PII
 stats = proc.stats()
 ```
 
-Note that each execution is monolingual, i.e. each text buffer must be in a
+Note that each execution is monolingual, i.e. each text buffer should be in a
 _single_ language.
 
 In adition to the default method, which takes a raw text buffer, the object also
