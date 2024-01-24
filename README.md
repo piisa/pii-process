@@ -1,5 +1,11 @@
 # pii-process
 
+[![version](https://img.shields.io/pypi/v/pii-process)](https://pypi.org/project/pii-process)
+[![changelog](https://img.shields.io/badge/change-log-blue)](CHANGES.md)
+[![license](https://img.shields.io/pypi/l/pii-process)](LICENSE)
+[![build status](https://github.com/piisa/pii-process/actions/workflows/pii-process-pr.yml/badge.svg)](https://github.com/piisa/pii-process/actions)
+
+
 Full end-to-end processing for PII (preprocess, extract, decide, transform)
 
 ## Description
@@ -22,9 +28,9 @@ packages are installed along. So what is needed is just:
  
 Choices are:
 
- * Simple installation: this will install the package, the packages for the four
-   above mentioned PIISA processing steps, and the extraction plugin for PII
-   instances using regular expressions:
+ * **Simple installation**: this will install the package, the packages for the
+   four above mentioned PIISA processing steps, and the extraction plugin for PII
+    instances using regular expressions:
    
         pip install pii-process
 
@@ -33,20 +39,20 @@ Choices are:
    `pii-transform`
 
 
- * Complete installation: this installs all the above, plus the extraction plugin
-   for PII instances using trained [Transformer] models (usually to extract
+ * **Complete installation**: this installs all the above, plus the extraction
+   plugin for PII instances using trained [Transformer] models (usually to extract
    PERSON and LOCATION types for some languages):
    
         pip install pii-process[transformers]
 
    Over the previous installation, this adds also the 
-   `pii-extract-plg-transformers` package. Note that **it is also needed to
-   install Pytorch** (either GPU or CPU versionss) , so that the models used by
+   `pii-extract-plg-transformers` package. Note that **Pytorch needs to be
+   installed too** (either GPU or CPU versionss) , so that the models used by
    the `pii-extract-plg-transformers` package can run. See the [transformers
    plugin documentation] for more information,
 
 
- * Alternate installation: this option performs the first install, and it adds
+ * **Alternate installation**: this option performs the first install, and it adds
    the extraction plugin for PII instances using the [Presidio] library (usually
    to extract PERSON and LOCATION types for some languages):
    
